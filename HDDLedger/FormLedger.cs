@@ -106,7 +106,10 @@ namespace HDDLedger
 
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
+            FormAddRow.Instance.OpenExcel = this.chkOpenExcel.Checked;
             FormAddRow.Instance.ShowDialog(this);
+
+            dgvHDD.FirstDisplayedScrollingRowIndex = dgvHDD.Rows.Count - 1;
         }
 
         private void FormLedger_Load(object sender, EventArgs e)

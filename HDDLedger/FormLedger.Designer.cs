@@ -45,12 +45,14 @@
             this.chState = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chRegisterTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chUpdateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkOpenExcel = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHDD)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkOpenExcel);
             this.groupBox1.Controls.Add(this.btnPrint);
             this.groupBox1.Controls.Add(this.btnDetail);
             this.groupBox1.Controls.Add(this.btnRowDelete);
@@ -60,7 +62,7 @@
             this.groupBox1.Location = new System.Drawing.Point(9, 9);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(892, 70);
+            this.groupBox1.Size = new System.Drawing.Size(892, 97);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "メニュー";
@@ -127,10 +129,10 @@
             this.chState,
             this.chRegisterTime,
             this.chUpdateTime});
-            this.dgvHDD.Location = new System.Drawing.Point(9, 82);
+            this.dgvHDD.Location = new System.Drawing.Point(9, 109);
             this.dgvHDD.Name = "dgvHDD";
             this.dgvHDD.RowTemplate.Height = 21;
-            this.dgvHDD.Size = new System.Drawing.Size(889, 376);
+            this.dgvHDD.Size = new System.Drawing.Size(889, 349);
             this.dgvHDD.TabIndex = 1;
             // 
             // chChoose
@@ -188,6 +190,18 @@
             this.chUpdateTime.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.chUpdateTime.Width = 150;
             // 
+            // chkOpenExcel
+            // 
+            this.chkOpenExcel.AutoSize = true;
+            this.chkOpenExcel.Checked = true;
+            this.chkOpenExcel.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkOpenExcel.Location = new System.Drawing.Point(6, 67);
+            this.chkOpenExcel.Name = "chkOpenExcel";
+            this.chkOpenExcel.Size = new System.Drawing.Size(177, 19);
+            this.chkOpenExcel.TabIndex = 6;
+            this.chkOpenExcel.Text = "行追加時にエクセルを開く";
+            this.chkOpenExcel.UseVisualStyleBackColor = true;
+            // 
             // FormLedger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -202,6 +216,7 @@
             this.Name = "FormLedger";
             this.Text = "HDD台帳";
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHDD)).EndInit();
             this.ResumeLayout(false);
 
@@ -222,6 +237,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn chState;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRegisterTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn chUpdateTime;
+        private System.Windows.Forms.CheckBox chkOpenExcel;
     }
 }
 

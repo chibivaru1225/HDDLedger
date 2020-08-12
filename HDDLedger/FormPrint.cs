@@ -94,7 +94,7 @@ namespace HDDLedger
                 if (result != DialogResult.OK)
                     return;
 
-                Process.Start(Excel.CreateLedger(rows, cbPrintCondition.Enabled));
+                Process.Start(Excel.CreateLedger(rows, cbBarcode.Checked));
                 MessageBox.Show(this, "出力完了しました。", "HDD台帳");
             }
         }

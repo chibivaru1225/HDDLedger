@@ -13,6 +13,8 @@ namespace HDDLedger
 {
     public partial class FormAddRow : Form
     {
+        public bool OpenExcel { get; set; }
+
         private static FormAddRow instance;
 
         public static FormAddRow Instance
@@ -60,7 +62,8 @@ namespace HDDLedger
 
                 var file = Excel.CreateLabel(row);
 
-                Process.Start(file);
+                if (OpenExcel)
+                    Process.Start(file);
 
                 FormLedger.Rows.Add(row);
                 FormLedger.UpdateData();
