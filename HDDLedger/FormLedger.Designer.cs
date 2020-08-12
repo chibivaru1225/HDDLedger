@@ -33,6 +33,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLedger));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.btnDetail = new System.Windows.Forms.Button();
             this.btnRowDelete = new System.Windows.Forms.Button();
             this.btnStateChange = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -43,8 +45,6 @@
             this.chState = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chRegisterTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chUpdateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnDetail = new System.Windows.Forms.Button();
-            this.btnPrint = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHDD)).BeginInit();
             this.SuspendLayout();
@@ -64,6 +64,26 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "メニュー";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnPrint.Location = new System.Drawing.Point(666, 18);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(107, 43);
+            this.btnPrint.TabIndex = 5;
+            this.btnPrint.Text = "台帳印刷";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            // 
+            // btnDetail
+            // 
+            this.btnDetail.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnDetail.Location = new System.Drawing.Point(232, 18);
+            this.btnDetail.Name = "btnDetail";
+            this.btnDetail.Size = new System.Drawing.Size(107, 43);
+            this.btnDetail.TabIndex = 4;
+            this.btnDetail.Text = "詳細表示";
+            this.btnDetail.UseVisualStyleBackColor = true;
             // 
             // btnRowDelete
             // 
@@ -131,7 +151,7 @@
             this.chRenban.Name = "chRenban";
             this.chRenban.ReadOnly = true;
             this.chRenban.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.chRenban.Width = 80;
+            this.chRenban.Width = 120;
             // 
             // chName
             // 
@@ -168,26 +188,6 @@
             this.chUpdateTime.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.chUpdateTime.Width = 150;
             // 
-            // btnDetail
-            // 
-            this.btnDetail.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnDetail.Location = new System.Drawing.Point(232, 18);
-            this.btnDetail.Name = "btnDetail";
-            this.btnDetail.Size = new System.Drawing.Size(107, 43);
-            this.btnDetail.TabIndex = 4;
-            this.btnDetail.Text = "詳細表示";
-            this.btnDetail.UseVisualStyleBackColor = true;
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnPrint.Location = new System.Drawing.Point(666, 18);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(107, 43);
-            this.btnPrint.TabIndex = 5;
-            this.btnPrint.Text = "台帳印刷";
-            this.btnPrint.UseVisualStyleBackColor = true;
-            // 
             // FormLedger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -195,6 +195,7 @@
             this.ClientSize = new System.Drawing.Size(910, 470);
             this.Controls.Add(this.dgvHDD);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -211,16 +212,16 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.DataGridView dgvHDD;
+        private System.Windows.Forms.Button btnStateChange;
+        private System.Windows.Forms.Button btnRowDelete;
+        private System.Windows.Forms.Button btnDetail;
+        private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.DataGridViewCheckBoxColumn chChoose;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRenban;
         private System.Windows.Forms.DataGridViewTextBoxColumn chName;
         private System.Windows.Forms.DataGridViewTextBoxColumn chState;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRegisterTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn chUpdateTime;
-        private System.Windows.Forms.Button btnStateChange;
-        private System.Windows.Forms.Button btnRowDelete;
-        private System.Windows.Forms.Button btnDetail;
-        private System.Windows.Forms.Button btnPrint;
     }
 }
 

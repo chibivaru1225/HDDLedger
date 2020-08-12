@@ -101,17 +101,6 @@ namespace HDDLedger
                 }
 
                 FormStateChange.Instance.ShowDialog(this);
-
-                foreach (var row in selectrows)
-                {
-                    row.State = FormStateChange.Instance.State;
-                    row.Choose = false;
-                    row.LatestUpdateTime = DateTime.Now;
-                }
-
-                UpdateData();
-
-                MessageBox.Show(this, "状態を変更しました", "HDD台帳");
             }
         }
 

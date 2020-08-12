@@ -36,18 +36,28 @@ namespace HDDLedger
 
             SetComboBoxes();
 
-            cbPrintCondition.SelectedValue = PrintModeKbns.All;
-
             btnPrintStart.Click += ButtonPrintStart_Click;
+            this.VisibleChanged += FormPrint_VisibleChanged;
+            this.FormClosing += FormPrint_FormClosing;
+        }
+
+        private void FormPrint_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Visible = false;
+            }
+        }
+
+        private void FormPrint_VisibleChanged(object sender, EventArgs e)
+        {
+            cbPrintCondition.SelectedValue = PrintModeKbns.All;
+            cbBarcode.Checked = false;
         }
 
         private void ButtonPrintStart_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show(this, "台帳を印刷しますか？", "HDD台帳", MessageBoxButtons.OKCancel);
-
-            if (result != DialogResult.OK)
-                return;
-
             if (cbPrintCondition.SelectedValue is PrintModeKbns kbn)
             {
                 if (kbn == PrintModeKbns.NONE)
@@ -59,13 +69,33 @@ namespace HDDLedger
                 var rows = (from a in FormLedger.Rows
                             select a);
 
-                if (kbn == PrintModeKbns.NotDiscard)
-                    rows = (from a in rows
-                            where a.State.Value != HDDStateTypes.Discard
-                            select a);
+                switch (kbn)
+                {
+                    case PrintModeKbns.NotDiscard:
+                        rows = (from a in rows
+                                where a.State.Value != HDDStateTypes.Discard
+                                select a);
+                        break;
+                    case PrintModeKbns.SelectRow:
+                        rows = (from a in rows
+                                where a.Choose == true
+                                select a);
+                        break;
+                }
 
+                if (rows.Count() == 0)
+                {
+                    MessageBox.Show(this, "印刷される行はありません。", "HDD台帳");
+                    return;
+                }
 
-                Process.Start(Excel.CreateLedger(rows.ToList(), cbPrintCondition.Enabled));
+                var result = MessageBox.Show(this, "台帳を印刷しますか？", "HDD台帳", MessageBoxButtons.OKCancel);
+
+                if (result != DialogResult.OK)
+                    return;
+
+                Process.Start(Excel.CreateLedger(rows, cbPrintCondition.Enabled));
+                MessageBox.Show(this, "出力完了しました。", "HDD台帳");
             }
         }
 
@@ -73,11 +103,6 @@ namespace HDDLedger
         {
             var cblist = new List<ComboBoxPrintModeItem>();
             cblist.Clear();
-
-            var none = new ComboBoxPrintModeItem();
-            none.PrintMode = PrintModeKbns.NONE;
-
-            cblist.Add(none);
 
             foreach (var tcg in System.Enum.GetValues(typeof(PrintModeKbns)))
             {

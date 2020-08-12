@@ -15,6 +15,8 @@ namespace HDDLedger
     {
         private static FormStateChange instance;
 
+        public IEnumerable<HDDInfoRow> Rows { get; set; }
+
         public static FormStateChange Instance
         {
             get
@@ -69,7 +71,16 @@ namespace HDDLedger
                         MessageBox.Show(this, "状態が選択されていません", "HDD台帳");
                         return;
                     default:
-                        this.State = type;
+                        foreach (var row in Rows)
+                        {
+                            row.State = FormStateChange.Instance.State;
+                            row.Choose = false;
+                            row.LatestUpdateTime = DateTime.Now;
+                        }
+
+                        FormLedger.UpdateData();
+
+                        MessageBox.Show(this, "状態を変更しました", "HDD台帳");
                         this.Visible = false;
                         break;
                 }

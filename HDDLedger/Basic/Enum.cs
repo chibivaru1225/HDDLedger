@@ -8,119 +8,6 @@ namespace HDDLedger
 {
     public class Enum
     {
-        #region はいいいえ区分
-
-        public enum YesNoKbns
-        {
-            Yes,
-            No,
-        }
-
-        public class YesNoKbn
-        {
-            private YesNoKbns YesNoKbns;
-
-            public YesNoKbn(YesNoKbns v)
-            {
-                this.YesNoKbns = v;
-            }
-
-            public YesNoKbn(string flag)
-            {
-                switch (flag)
-                {
-                    case "1": this.YesNoKbns = YesNoKbns.Yes; break;
-                    case "0": this.YesNoKbns = YesNoKbns.No; break;
-                    default: this.YesNoKbns = YesNoKbns.No; break;
-                }
-            }
-
-            public static YesNoKbn GetKbnForDBValue(string DBValue)
-            {
-                switch (DBValue)
-                {
-                    case "1": return YesNoKbns.Yes;
-                    case "0": return YesNoKbns.No;
-                    default: return YesNoKbns.No;
-                }
-            }
-
-            public static YesNoKbns GetKbnsForDBValue(string DBValue)
-            {
-                switch (DBValue)
-                {
-                    case "1": return YesNoKbns.Yes;
-                    default: return YesNoKbns.No;
-                }
-            }
-
-            public string DBValue
-            {
-                get
-                {
-                    switch (this.YesNoKbns)
-                    {
-                        case YesNoKbns.Yes: return "1";
-                        default: return "0";
-                    }
-                }
-            }
-
-            public bool BoolValue
-            {
-                get
-                {
-                    switch (this.YesNoKbns)
-                    {
-                        case YesNoKbns.Yes: return true;
-                        default: return false;
-                    }
-                }
-            }
-
-            public string ViewValue
-            {
-                get
-                {
-                    switch (this.YesNoKbns)
-                    {
-                        case YesNoKbns.Yes: return "はい";
-                        default: return "いいえ";
-                    }
-                }
-            }
-
-            public YesNoKbns Value
-            {
-                get
-                {
-                    return this.YesNoKbns;
-                }
-            }
-
-            /// <summary>
-            /// 静的型変換
-            /// Class -> Enum
-            /// </summary>
-            /// <param name="YesNoKbn"></param>
-            public static implicit operator YesNoKbns(YesNoKbn YesNoKbn)
-            {
-                return YesNoKbn.YesNoKbns;
-            }
-
-            /// <summary>
-            /// 静的型変換
-            /// Enum -> Class
-            /// </summary>
-            /// <param name="YesNoKbns"></param>
-            public static implicit operator YesNoKbn(YesNoKbns YesNoKbns)
-            {
-                return new YesNoKbn(YesNoKbns);
-            }
-        }
-
-        #endregion
-
         #region HDD状態
 
         public enum HDDStateTypes
@@ -239,6 +126,7 @@ namespace HDDLedger
         {
             All,
             NotDiscard,
+            SelectRow,
             NONE,
         }
 
@@ -257,6 +145,7 @@ namespace HDDLedger
                 {
                     case "1": this.type = PrintModeKbns.All; break;
                     case "2": this.type = PrintModeKbns.NotDiscard; break;
+                    case "3": this.type = PrintModeKbns.SelectRow; break;
                     default: this.type = PrintModeKbns.NONE; break;
                 }
             }
@@ -267,6 +156,7 @@ namespace HDDLedger
                 {
                     case "1": return PrintModeKbns.All;
                     case "2": return PrintModeKbns.NotDiscard;
+                    case "3": return PrintModeKbns.SelectRow;
                     default: return PrintModeKbns.NONE;
                 }
             }
@@ -279,6 +169,7 @@ namespace HDDLedger
                     {
                         case PrintModeKbns.All: return "1";
                         case PrintModeKbns.NotDiscard: return "2";
+                        case PrintModeKbns.SelectRow: return "3";
                         default: return "0";
                     }
                 }
@@ -292,6 +183,7 @@ namespace HDDLedger
                     {
                         case PrintModeKbns.All: return "全て";
                         case PrintModeKbns.NotDiscard: return "未廃棄";
+                        case PrintModeKbns.SelectRow: return "選択中の行";
                         default: return String.Empty;
                     }
                 }

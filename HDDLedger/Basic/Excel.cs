@@ -66,7 +66,7 @@ namespace HDDLedger
             return excelpath;
         }
 
-        public static string CreateLedger(List<HDDInfoRow> rows, bool printbarcode)
+        public static string CreateLedger(IEnumerable<HDDInfoRow> rows, bool printbarcode)
         {
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var excelpath = documents + @"\HDDLedger\Excel\Excel-" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xlsx";
@@ -89,17 +89,17 @@ namespace HDDLedger
 
                     for (int i = 0; i < rows.Count(); i++)
                     {
-                        sheet.Cell(2 + i, 1).Value = "'" + rows[i].BarcodeRenban;
-                        sheet.Cell(2 + i, 2).Value = rows[i].HDDName;
-                        sheet.Cell(2 + i, 3).Value = rows[i].StateViewValue;
-                        sheet.Cell(2 + i, 4).Value = rows[i].RegisterTimeStr;
-                        sheet.Cell(2 + i, 5).Value = rows[i].LatestUpdateTimeStr;
+                        sheet.Cell(2 + i, 1).Value = "'" + rows.ElementAt(i).BarcodeRenban;
+                        sheet.Cell(2 + i, 2).Value = rows.ElementAt(i).HDDName;
+                        sheet.Cell(2 + i, 3).Value = rows.ElementAt(i).StateViewValue;
+                        sheet.Cell(2 + i, 4).Value = rows.ElementAt(i).RegisterTimeStr;
+                        sheet.Cell(2 + i, 5).Value = rows.ElementAt(i).LatestUpdateTimeStr;
 
                         sheet.Row(2 + i).Height = 30;
 
                         if (printbarcode)
                         {
-                            var imagepath = documents + @"\HDDLedger\Barcode\Barcode-" + rows[i].BarcodeRenban + ".png";
+                            var imagepath = documents + @"\HDDLedger\Barcode\Barcode-" + rows.ElementAt(i).BarcodeRenban + ".png";
                             var pic = sheet.AddPicture(imagepath).MoveTo(sheet.Cell(2 + i, 7));
                             pic.Width = 200;
                             pic.Height = 30;
@@ -128,8 +128,17 @@ namespace HDDLedger
                     sheet.Column(6).Width = 10;
 
                     if (printbarcode)
+                    {
                         sheet.Column(7).Width = 28;
+                        //sheet.PageSetup.Margins.Top = 1.91 / 2.54;
+                        //sheet.PageSetup.Margins.Bottom = 1.91 / 2.54;
+                        //sheet.PageSetup.Margins.Left = 0.64 / 2.54;
+                        //sheet.PageSetup.Margins.Right = 0.64 / 2.54;
+                        //sheet.PageSetup.Margins.Footer = 0;
+                        //sheet.PageSetup.Margins.Header = 0;
+                    }
 
+                    sheet.PageSetup.PageOrientation = XLPageOrientation.Landscape;
                     workbook.SaveAs(excelpath);
                 }
             }

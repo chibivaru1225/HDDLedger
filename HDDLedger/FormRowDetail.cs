@@ -123,6 +123,12 @@ namespace HDDLedger
 
         private void ButtonUpdate_Click(object sender, EventArgs e)
         {
+            if(row == null)
+            {
+                MessageBox.Show(this, "行が選択されていません。", "HDD台帳");
+                return;
+            }
+
             if (cbState.SelectedValue is HDDStateTypes type)
             {
                 if (String.IsNullOrEmpty(txtDetailHDDName.Text.Trim()))
