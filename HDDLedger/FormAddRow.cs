@@ -38,6 +38,11 @@ namespace HDDLedger
             this.btnCancel.Click += BtnCancel_Click;
         }
 
+        private void FormAddRow_VisibleChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void FormAddRow_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -68,7 +73,10 @@ namespace HDDLedger
                 FormLedger.Rows.Add(row);
                 FormLedger.UpdateData();
 
-                this.Visible = false;
+                if (cbContinuousScan.Checked)
+                    txtHDDName.Clear();
+                else
+                    this.Visible = false;
             }
             else
             {
@@ -85,6 +93,7 @@ namespace HDDLedger
         {
             txtHDDName.Clear();
             txtHDDName.Focus();
+            cbContinuousScan.Checked = false;
         }
     }
 }
