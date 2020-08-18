@@ -108,6 +108,20 @@ namespace HDDLedger
                 row.State = type;
                 FormLedger.UpdateData();
                 BasicPanel_Clear();
+
+
+                if (cbFocusControl.SelectedValue is NextFocusKbns kbn)
+                {
+                    switch(kbn)
+                    {
+                        case NextFocusKbns.Renban:
+                            txtBaseRenban.Focus();
+                            break;
+                        case NextFocusKbns.HDDName:
+                            txtBaseHDDName.Focus();
+                            break;
+                    }
+                }
             }
         }
 
