@@ -13,8 +13,6 @@ namespace HDDLedger
 {
     public partial class FormAddRow : Form
     {
-        public bool OpenExcel { get; set; }
-
         private static FormAddRow instance;
 
         public static FormAddRow Instance
@@ -36,11 +34,15 @@ namespace HDDLedger
             this.FormClosing += FormAddRow_FormClosing;
             this.btnRegist.Click += BtnRegist_Click;
             this.btnCancel.Click += BtnCancel_Click;
+            this.VisibleChanged += FormAddRow_VisibleChanged;
         }
 
         private void FormAddRow_VisibleChanged(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            txtHDDName.Clear();
+            txtHDDName.Focus();
+            cbContinuousScan.Checked = false;
+            cbOpenExcel.Checked = true;
         }
 
         private void FormAddRow_FormClosing(object sender, FormClosingEventArgs e)
@@ -67,7 +69,7 @@ namespace HDDLedger
 
                 var file = Excel.CreateLabel(row);
 
-                if (OpenExcel)
+                if (cbOpenExcel.Checked)
                     Process.Start(file);
 
                 FormLedger.Rows.Add(row);
@@ -94,6 +96,7 @@ namespace HDDLedger
             txtHDDName.Clear();
             txtHDDName.Focus();
             cbContinuousScan.Checked = false;
+            cbOpenExcel.Checked = true;
         }
     }
 }

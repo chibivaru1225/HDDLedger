@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Office2010.CustomUI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,8 +38,15 @@ namespace HDDLedger
             SetComboBoxes();
 
             btnPrintStart.Click += ButtonPrintStart_Click;
+            cbUsePrintOption.CheckedChanged += cbUsePrintOption_CheckedChanged;
             this.VisibleChanged += FormPrint_VisibleChanged;
             this.FormClosing += FormPrint_FormClosing;
+        }
+
+        private void cbUsePrintOption_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbUsePrintOption.Checked && !FormPrintOption.Instance.Visible)
+                FormPrintOption.Instance.Show();
         }
 
         private void FormPrint_FormClosing(object sender, FormClosingEventArgs e)
@@ -53,7 +61,10 @@ namespace HDDLedger
         private void FormPrint_VisibleChanged(object sender, EventArgs e)
         {
             cbPrintCondition.SelectedValue = PrintModeKbns.All;
-            cbBarcode.Checked = false;
+            cbUsePrintOption.Checked = false;
+
+            if (FormPrintOption.Instance.Visible)
+                FormPrintOption.Instance.Visible = false;
         }
 
         private void ButtonPrintStart_Click(object sender, EventArgs e)
@@ -94,7 +105,18 @@ namespace HDDLedger
                 if (result != DialogResult.OK)
                     return;
 
-                Process.Start(Excel.CreateLedger(rows, cbBarcode.Checked));
+                var crows = (from a in FormPrintOption.Instance.DefaultColumnRows()
+                             where a.IsPrint
+                             orderby a.ColumnOrder
+                             select a);
+
+                if (cbUsePrintOption.Checked)
+                    crows = (from a in FormPrintOption.Instance.ColumnRows
+                             where a.IsPrint
+                             orderby a.ColumnOrder
+                             select a);
+
+                Process.Start(Excel.CreateLedger(rows, crows, FormPrintOption.Instance.Orientation));
                 MessageBox.Show(this, "出力完了しました。", "HDD台帳");
             }
         }

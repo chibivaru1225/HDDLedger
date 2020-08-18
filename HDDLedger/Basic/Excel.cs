@@ -66,7 +66,7 @@ namespace HDDLedger
             return excelpath;
         }
 
-        public static string CreateLedger(IEnumerable<HDDInfoRow> rows, bool printbarcode)
+        public static string CreateLedger(IEnumerable<HDDInfoRow> rows, IEnumerable<ColumnRow> crows, XLPageOrientation orientation)
         {
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var excelpath = documents + @"\HDDLedger\Excel\Excel-" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xlsx";
@@ -77,68 +77,108 @@ namespace HDDLedger
                 {
                     var sheet = workbook.Worksheets.Add("HDD台帳");
 
-                    sheet.Cell(1, 1).Value = "連番";
-                    sheet.Cell(1, 2).Value = "HDD名";
-                    sheet.Cell(1, 3).Value = "状態";
-                    sheet.Cell(1, 4).Value = "登録日時";
-                    sheet.Cell(1, 5).Value = "更新日時";
-                    sheet.Cell(1, 6).Value = "確認印";
-
-                    if (printbarcode)
-                        sheet.Cell(1, 7).Value = "連番バーコード";
-
-                    for (int i = 0; i < rows.Count(); i++)
+                    for (int l = 0; l < crows.Count(); l++)
                     {
-                        sheet.Cell(2 + i, 1).Value = "'" + rows.ElementAt(i).BarcodeRenban;
-                        sheet.Cell(2 + i, 2).Value = rows.ElementAt(i).HDDName;
-                        sheet.Cell(2 + i, 3).Value = rows.ElementAt(i).StateViewValue;
-                        sheet.Cell(2 + i, 4).Value = rows.ElementAt(i).RegisterTimeStr;
-                        sheet.Cell(2 + i, 5).Value = rows.ElementAt(i).LatestUpdateTimeStr;
+                        sheet.Cell(1, 1 + l).Value = crows.ElementAt(l).ColumnName;
 
-                        sheet.Row(2 + i).Height = 30;
-
-                        if (printbarcode)
+                        for (int i = 0; i < rows.Count(); i++)
                         {
-                            var imagepath = documents + @"\HDDLedger\Barcode\Barcode-" + rows.ElementAt(i).BarcodeRenban + ".png";
-                            var pic = sheet.AddPicture(imagepath).MoveTo(sheet.Cell(2 + i, 7));
-                            pic.Width = 200;
-                            pic.Height = 30;
+                            string value = null;
+
+                            switch (crows.ElementAt(l).Kbn.Value)
+                            {
+                                case Enum.PrintColumnKbns.Renban:
+                                    value = "'" + rows.ElementAt(i).BarcodeRenban;
+                                    break;
+                                case Enum.PrintColumnKbns.HDDName:
+                                    value = rows.ElementAt(i).HDDName;
+                                    break;
+                                case Enum.PrintColumnKbns.State:
+                                    value = rows.ElementAt(i).StateViewValue;
+                                    break;
+                                case Enum.PrintColumnKbns.InsertTime:
+                                    value = rows.ElementAt(i).RegisterTimeStr;
+                                    break;
+                                case Enum.PrintColumnKbns.UpdateTime:
+                                    value = rows.ElementAt(i).LatestUpdateTimeStr;
+                                    break;
+                                case Enum.PrintColumnKbns.NextProcess:
+                                    value = "廃棄・再利用";
+                                    sheet.Cell(2 + i, l + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                                    sheet.Cell(2 + i, l + 1).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                                    break;
+                                default:
+                                    value = String.Empty;
+                                    break;
+                            }
+
+                            sheet.Cell(2 + i, l + 1).Value = value;
+                            sheet.Cell(2 + i, l + 1).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                            sheet.Row(2 + i).Height = 30;
                         }
                     }
 
+                    //if (printbarcode)
+                    //    sheet.Cell(1, 7).Value = "連番バーコード";
+
+                    //for (int i = 0; i < rows.Count(); i++)
+                    //{
+                    //    sheet.Cell(2 + i, 1).Value = "'" + rows.ElementAt(i).BarcodeRenban;
+                    //    sheet.Cell(2 + i, 2).Value = rows.ElementAt(i).HDDName;
+                    //    sheet.Cell(2 + i, 3).Value = rows.ElementAt(i).StateViewValue;
+                    //    sheet.Cell(2 + i, 4).Value = rows.ElementAt(i).RegisterTimeStr;
+                    //    sheet.Cell(2 + i, 5).Value = rows.ElementAt(i).LatestUpdateTimeStr;
+
+                    //    sheet.Row(2 + i).Height = 30;
+
+                    //    //if (printbarcode)
+                    //    //{
+                    //    //    var imagepath = documents + @"\HDDLedger\Barcode\Barcode-" + rows.ElementAt(i).BarcodeRenban + ".png";
+                    //    //    var pic = sheet.AddPicture(imagepath).MoveTo(sheet.Cell(2 + i, 7));
+                    //    //    pic.Width = 200;
+                    //    //    pic.Height = 30;
+                    //    //}
+                    //}
+
                     sheet.ColumnsUsed().AdjustToContents();
 
-                    if (printbarcode)
+                    for (int l = 0; l < crows.Count(); l++)
                     {
-                        sheet.Range(sheet.Cell(1, 1), sheet.Cell(1 + rows.Count(), 7)).Style
-                                           .Border.SetTopBorder(XLBorderStyleValues.Thin)
-                                           .Border.SetBottomBorder(XLBorderStyleValues.Thin)
-                                           .Border.SetLeftBorder(XLBorderStyleValues.Thin)
-                                           .Border.SetRightBorder(XLBorderStyleValues.Thin);
+                        if (!crows.ElementAt(l).Kbn.AdjustToContents)
+                            sheet.Column(l + 1).Width = crows.ElementAt(l).Kbn.Width;
                     }
-                    else
-                    {
-                        sheet.Range(sheet.Cell(1, 1), sheet.Cell(1 + rows.Count(), 6)).Style
-                                           .Border.SetTopBorder(XLBorderStyleValues.Thin)
-                                           .Border.SetBottomBorder(XLBorderStyleValues.Thin)
-                                           .Border.SetLeftBorder(XLBorderStyleValues.Thin)
-                                           .Border.SetRightBorder(XLBorderStyleValues.Thin);
-                    }
+                    //if (printbarcode)
+                    //{
+                    //    sheet.Range(sheet.Cell(1, 1), sheet.Cell(1 + rows.Count(), 7)).Style
+                    //                       .Border.SetTopBorder(XLBorderStyleValues.Thin)
+                    //                       .Border.SetBottomBorder(XLBorderStyleValues.Thin)
+                    //                       .Border.SetLeftBorder(XLBorderStyleValues.Thin)
+                    //                       .Border.SetRightBorder(XLBorderStyleValues.Thin);
+                    //}
+                    //else
+                    //{
+                    sheet.Range(sheet.Cell(1, 1), sheet.Cell(1 + rows.Count(), crows.Count())).Style
+                                   .Border.SetTopBorder(XLBorderStyleValues.Thin)
+                                   .Border.SetBottomBorder(XLBorderStyleValues.Thin)
+                                   .Border.SetLeftBorder(XLBorderStyleValues.Thin)
+                                   .Border.SetRightBorder(XLBorderStyleValues.Thin);
+                    //}
 
-                    sheet.Column(6).Width = 10;
+                    //sheet.Column(6).Width = 10;
 
-                    if (printbarcode)
-                    {
-                        sheet.Column(7).Width = 28;
-                        //sheet.PageSetup.Margins.Top = 1.91 / 2.54;
-                        //sheet.PageSetup.Margins.Bottom = 1.91 / 2.54;
-                        //sheet.PageSetup.Margins.Left = 0.64 / 2.54;
-                        //sheet.PageSetup.Margins.Right = 0.64 / 2.54;
-                        //sheet.PageSetup.Margins.Footer = 0;
-                        //sheet.PageSetup.Margins.Header = 0;
-                    }
+                    //if (printbarcode)
+                    //{
+                    //    sheet.Column(7).Width = 28;
+                    //    //sheet.PageSetup.Margins.Top = 1.91 / 2.54;
+                    //    //sheet.PageSetup.Margins.Bottom = 1.91 / 2.54;
+                    //    //sheet.PageSetup.Margins.Left = 0.64 / 2.54;
+                    //    //sheet.PageSetup.Margins.Right = 0.64 / 2.54;
+                    //    //sheet.PageSetup.Margins.Footer = 0;
+                    //    //sheet.PageSetup.Margins.Header = 0;
+                    //}
 
-                    sheet.PageSetup.PageOrientation = XLPageOrientation.Landscape;
+                    sheet.PageSetup.PageOrientation = orientation;
+                    sheet.PageSetup.SetRowsToRepeatAtTop(1, 1 + crows.Count());
                     workbook.SaveAs(excelpath);
                 }
             }

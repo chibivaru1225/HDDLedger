@@ -45,14 +45,14 @@
             this.chState = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chRegisterTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chUpdateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chkOpenExcel = new System.Windows.Forms.CheckBox();
+            this.btnStateChangeContinuous = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHDD)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.chkOpenExcel);
+            this.groupBox1.Controls.Add(this.btnStateChangeContinuous);
             this.groupBox1.Controls.Add(this.btnPrint);
             this.groupBox1.Controls.Add(this.btnDetail);
             this.groupBox1.Controls.Add(this.btnRowDelete);
@@ -62,7 +62,7 @@
             this.groupBox1.Location = new System.Drawing.Point(9, 9);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(892, 97);
+            this.groupBox1.Size = new System.Drawing.Size(892, 69);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "メニュー";
@@ -73,17 +73,17 @@
             this.btnPrint.Location = new System.Drawing.Point(666, 18);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(107, 43);
-            this.btnPrint.TabIndex = 5;
+            this.btnPrint.TabIndex = 4;
             this.btnPrint.Text = "台帳印刷";
             this.btnPrint.UseVisualStyleBackColor = true;
             // 
             // btnDetail
             // 
             this.btnDetail.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnDetail.Location = new System.Drawing.Point(232, 18);
+            this.btnDetail.Location = new System.Drawing.Point(345, 18);
             this.btnDetail.Name = "btnDetail";
             this.btnDetail.Size = new System.Drawing.Size(107, 43);
-            this.btnDetail.TabIndex = 4;
+            this.btnDetail.TabIndex = 3;
             this.btnDetail.Text = "詳細表示";
             this.btnDetail.UseVisualStyleBackColor = true;
             // 
@@ -95,7 +95,7 @@
             this.btnRowDelete.Location = new System.Drawing.Point(779, 18);
             this.btnRowDelete.Name = "btnRowDelete";
             this.btnRowDelete.Size = new System.Drawing.Size(107, 43);
-            this.btnRowDelete.TabIndex = 3;
+            this.btnRowDelete.TabIndex = 5;
             this.btnRowDelete.Text = "選択行削除";
             this.btnRowDelete.UseVisualStyleBackColor = false;
             // 
@@ -105,8 +105,8 @@
             this.btnStateChange.Location = new System.Drawing.Point(119, 18);
             this.btnStateChange.Name = "btnStateChange";
             this.btnStateChange.Size = new System.Drawing.Size(107, 43);
-            this.btnStateChange.TabIndex = 2;
-            this.btnStateChange.Text = "状態変更";
+            this.btnStateChange.TabIndex = 1;
+            this.btnStateChange.Text = "状態変更\r\n(選択行一括)";
             this.btnStateChange.UseVisualStyleBackColor = true;
             // 
             // btnAdd
@@ -115,7 +115,7 @@
             this.btnAdd.Location = new System.Drawing.Point(6, 18);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(107, 43);
-            this.btnAdd.TabIndex = 1;
+            this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "HDD追加";
             this.btnAdd.UseVisualStyleBackColor = true;
             // 
@@ -129,10 +129,10 @@
             this.chState,
             this.chRegisterTime,
             this.chUpdateTime});
-            this.dgvHDD.Location = new System.Drawing.Point(9, 109);
+            this.dgvHDD.Location = new System.Drawing.Point(9, 81);
             this.dgvHDD.Name = "dgvHDD";
             this.dgvHDD.RowTemplate.Height = 21;
-            this.dgvHDD.Size = new System.Drawing.Size(889, 349);
+            this.dgvHDD.Size = new System.Drawing.Size(889, 418);
             this.dgvHDD.TabIndex = 1;
             // 
             // chChoose
@@ -190,23 +190,21 @@
             this.chUpdateTime.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.chUpdateTime.Width = 150;
             // 
-            // chkOpenExcel
+            // btnStateChangeContinuous
             // 
-            this.chkOpenExcel.AutoSize = true;
-            this.chkOpenExcel.Checked = true;
-            this.chkOpenExcel.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOpenExcel.Location = new System.Drawing.Point(6, 67);
-            this.chkOpenExcel.Name = "chkOpenExcel";
-            this.chkOpenExcel.Size = new System.Drawing.Size(177, 19);
-            this.chkOpenExcel.TabIndex = 6;
-            this.chkOpenExcel.Text = "行追加時にエクセルを開く";
-            this.chkOpenExcel.UseVisualStyleBackColor = true;
+            this.btnStateChangeContinuous.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnStateChangeContinuous.Location = new System.Drawing.Point(232, 18);
+            this.btnStateChangeContinuous.Name = "btnStateChangeContinuous";
+            this.btnStateChangeContinuous.Size = new System.Drawing.Size(107, 43);
+            this.btnStateChangeContinuous.TabIndex = 2;
+            this.btnStateChangeContinuous.Text = "状態変更\r\n(連続入力)";
+            this.btnStateChangeContinuous.UseVisualStyleBackColor = true;
             // 
             // FormLedger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(910, 470);
+            this.ClientSize = new System.Drawing.Size(910, 511);
             this.Controls.Add(this.dgvHDD);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -216,7 +214,6 @@
             this.Name = "FormLedger";
             this.Text = "HDD台帳";
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHDD)).EndInit();
             this.ResumeLayout(false);
 
@@ -237,7 +234,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn chState;
         private System.Windows.Forms.DataGridViewTextBoxColumn chRegisterTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn chUpdateTime;
-        private System.Windows.Forms.CheckBox chkOpenExcel;
+        private System.Windows.Forms.Button btnStateChangeContinuous;
     }
 }
 

@@ -43,8 +43,23 @@ namespace HDDLedger
             this.VisibleChanged += FormRowDetail_VisibleChanged;
 
             btnSearch.Click += ButtonSearch_Click;
+            btnClear.Click += BtnClear_Click;
             btnUpdate.Click += ButtonUpdate_Click;
             btnLabelPrint.Click += BtnLabelPrint_Click;
+        }
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            this.txtRenban.Clear();
+            this.txtHDDName.Clear();
+            this.txtDetailRenban.Clear();
+            this.txtDetailHDDName.Clear();
+            this.cbState.SelectedValue = HDDStateTypes.NONE;
+            this.txtDetailRegisterTime.Clear();
+            this.txtDetailUpdateTime.Clear();
+
+            this.txtRenban.Focus();
+            row = null;
         }
 
         private void BtnLabelPrint_Click(object sender, EventArgs e)

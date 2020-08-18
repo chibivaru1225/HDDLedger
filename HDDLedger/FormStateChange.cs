@@ -49,7 +49,7 @@ namespace HDDLedger
 
         private void FormStateChange_Shown(object sender, EventArgs e)
         {
-            cbState.SelectedValue = HDDStateTypes.NONE;
+            cbState.SelectedValue = HDDStateTypes.BeforeErased;
         }
 
         private void FormStateChange_FormClosing(object sender, FormClosingEventArgs e)
@@ -71,13 +71,15 @@ namespace HDDLedger
                         MessageBox.Show(this, "状態が選択されていません", "HDD台帳");
                         return;
                     default:
-                        foreach (var row in Rows)
+                        if (cbState.SelectedValue is HDDStateTypes tp)
                         {
-                            row.State = FormStateChange.Instance.State;
-                            row.Choose = false;
-                            row.LatestUpdateTime = DateTime.Now;
+                            foreach (var row in Rows)
+                            {
+                                row.State = tp;
+                                row.Choose = false;
+                                row.LatestUpdateTime = DateTime.Now;
+                            }
                         }
-
                         FormLedger.UpdateData();
 
                         MessageBox.Show(this, "状態を変更しました", "HDD台帳");
@@ -97,10 +99,10 @@ namespace HDDLedger
             var cblist = new List<ComboBoxStateItem>();
             cblist.Clear();
 
-            var tcgnone = new ComboBoxStateItem();
-            tcgnone.HDDState = HDDStateTypes.NONE;
+            //var tcgnone = new ComboBoxStateItem();
+            //tcgnone.HDDState = HDDStateTypes.NONE;
 
-            cblist.Add(tcgnone);
+            //cblist.Add(tcgnone);
 
             foreach (var tcg in System.Enum.GetValues(typeof(HDDStateTypes)))
             {

@@ -34,6 +34,7 @@
             this.btnRegist = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.cbContinuousScan = new System.Windows.Forms.CheckBox();
+            this.cbOpenExcel = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtHDDName
@@ -57,7 +58,7 @@
             // btnRegist
             // 
             this.btnRegist.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnRegist.Location = new System.Drawing.Point(12, 67);
+            this.btnRegist.Location = new System.Drawing.Point(12, 91);
             this.btnRegist.Name = "btnRegist";
             this.btnRegist.Size = new System.Drawing.Size(150, 81);
             this.btnRegist.TabIndex = 1;
@@ -68,7 +69,7 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnCancel.Location = new System.Drawing.Point(168, 67);
+            this.btnCancel.Location = new System.Drawing.Point(168, 91);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(150, 81);
             this.btnCancel.TabIndex = 2;
@@ -86,13 +87,25 @@
             this.cbContinuousScan.Text = "連続スキャン";
             this.cbContinuousScan.UseVisualStyleBackColor = true;
             // 
+            // cbOpenExcel
+            // 
+            this.cbOpenExcel.AutoSize = true;
+            this.cbOpenExcel.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.cbOpenExcel.Location = new System.Drawing.Point(15, 66);
+            this.cbOpenExcel.Name = "cbOpenExcel";
+            this.cbOpenExcel.Size = new System.Drawing.Size(162, 19);
+            this.cbOpenExcel.TabIndex = 4;
+            this.cbOpenExcel.Text = "登録時にエクセルを開く";
+            this.cbOpenExcel.UseVisualStyleBackColor = true;
+            // 
             // FormAddRow
             // 
             this.AcceptButton = this.btnRegist;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(333, 160);
+            this.ClientSize = new System.Drawing.Size(333, 184);
+            this.Controls.Add(this.cbOpenExcel);
             this.Controls.Add(this.cbContinuousScan);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnRegist);
@@ -116,5 +129,6 @@
         private System.Windows.Forms.Button btnRegist;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.CheckBox cbContinuousScan;
+        private System.Windows.Forms.CheckBox cbOpenExcel;
     }
 }

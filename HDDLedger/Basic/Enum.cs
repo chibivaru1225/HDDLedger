@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ClosedXML.Excel;
+using System;
+using Color = System.Drawing.Color;
 
 namespace HDDLedger
 {
@@ -13,6 +11,8 @@ namespace HDDLedger
         public enum HDDStateTypes
         {
             BeforeErased,
+            Erased,
+            Abandoned,
             Discard,
             Reuse,
             NONE,
@@ -32,8 +32,10 @@ namespace HDDLedger
                 switch (flag)
                 {
                     case "1": this.type = HDDStateTypes.BeforeErased; break;
-                    case "2": this.type = HDDStateTypes.Discard; break;
-                    case "3": this.type = HDDStateTypes.Reuse; break;
+                    case "2": this.type = HDDStateTypes.Erased; break;
+                    case "3": this.type = HDDStateTypes.Abandoned; break;
+                    case "4": this.type = HDDStateTypes.Discard; break;
+                    case "5": this.type = HDDStateTypes.Reuse; break;
                     default: this.type = HDDStateTypes.NONE; break;
                 }
             }
@@ -43,8 +45,10 @@ namespace HDDLedger
                 switch (DBValue)
                 {
                     case "1": return HDDStateTypes.BeforeErased;
-                    case "2": return HDDStateTypes.Discard;
-                    case "3": return HDDStateTypes.Reuse;
+                    case "2": return HDDStateTypes.Erased;
+                    case "3": return HDDStateTypes.Abandoned;
+                    case "4": return HDDStateTypes.Discard;
+                    case "5": return HDDStateTypes.Reuse;
                     default: return HDDStateTypes.NONE;
                 }
             }
@@ -56,24 +60,15 @@ namespace HDDLedger
                     switch (this.type)
                     {
                         case HDDStateTypes.BeforeErased: return "1";
-                        case HDDStateTypes.Discard: return "2";
-                        case HDDStateTypes.Reuse: return "3";
+                        case HDDStateTypes.Erased: return "2";
+                        case HDDStateTypes.Abandoned: return "3";
+                        case HDDStateTypes.Discard: return "4";
+                        case HDDStateTypes.Reuse: return "5";
                         default: return "0";
                     }
                 }
             }
 
-            public bool BoolValue
-            {
-                get
-                {
-                    switch (this.type)
-                    {
-                        case HDDStateTypes.BeforeErased: return true;
-                        default: return false;
-                    }
-                }
-            }
 
             public string ViewValue
             {
@@ -82,9 +77,27 @@ namespace HDDLedger
                     switch (this.type)
                     {
                         case HDDStateTypes.BeforeErased: return "未消去";
+                        case HDDStateTypes.Erased: return "消去済";
+                        case HDDStateTypes.Abandoned: return "廃棄待";
                         case HDDStateTypes.Discard: return "廃棄済";
                         case HDDStateTypes.Reuse: return "再利用";
                         default: return String.Empty;
+                    }
+                }
+            }
+
+            public Color RowColor
+            {
+                get
+                {
+                    switch (this.type)
+                    {
+                        case HDDStateTypes.BeforeErased: return Color.White;
+                        case HDDStateTypes.Erased: return Color.LightGreen;
+                        case HDDStateTypes.Abandoned: return Color.Yellow;
+                        case HDDStateTypes.Discard: return Color.LightPink;
+                        case HDDStateTypes.Reuse: return Color.SkyBlue;
+                        default: return Color.White;
                     }
                 }
             }
@@ -215,6 +228,380 @@ namespace HDDLedger
             public static implicit operator PrintModeKbn(PrintModeKbns PrintModeKbns)
             {
                 return new PrintModeKbn(PrintModeKbns);
+            }
+        }
+
+        #endregion
+
+        #region 印刷向き区分
+
+        public class PrintOrientationKbn
+        {
+            private XLPageOrientation type;
+
+            public PrintOrientationKbn(XLPageOrientation v)
+            {
+                this.type = v;
+            }
+
+            public PrintOrientationKbn(string flag)
+            {
+                switch (flag)
+                {
+                    case "1": this.type = XLPageOrientation.Default; break;
+                    case "2": this.type = XLPageOrientation.Portrait; break;
+                    case "3": this.type = XLPageOrientation.Landscape; break;
+                    default: this.type = XLPageOrientation.Default; break;
+                }
+            }
+
+            public static XLPageOrientation GetTypeForDBValue(string DBValue)
+            {
+                switch (DBValue)
+                {
+                    case "1": return XLPageOrientation.Default;
+                    case "2": return XLPageOrientation.Portrait;
+                    case "3": return XLPageOrientation.Landscape;
+                    default: return XLPageOrientation.Default;
+                }
+            }
+
+            public string DBValue
+            {
+                get
+                {
+                    switch (this.type)
+                    {
+                        case XLPageOrientation.Default: return "1";
+                        case XLPageOrientation.Portrait: return "2";
+                        case XLPageOrientation.Landscape: return "3";
+                        default: return "0";
+                    }
+                }
+            }
+
+            public string ViewValue
+            {
+                get
+                {
+                    switch (this.type)
+                    {
+                        case XLPageOrientation.Default: return "デフォルト";
+                        case XLPageOrientation.Portrait: return "縦向き";
+                        case XLPageOrientation.Landscape: return "横向き";
+                        default: return String.Empty;
+                    }
+                }
+            }
+
+            public XLPageOrientation Value
+            {
+                get
+                {
+                    return this.type;
+                }
+            }
+
+            /// <summary>
+            /// 静的型変換
+            /// Class -> Enum
+            /// </summary>
+            /// <param name="PrintOrientationKbn"></param>
+            public static implicit operator XLPageOrientation(PrintOrientationKbn kbn)
+            {
+                return kbn.type;
+            }
+
+            /// <summary>
+            /// 静的型変換
+            /// Enum -> Class
+            /// </summary>
+            /// <param name="PrintOrientationKbns"></param>
+            public static implicit operator PrintOrientationKbn(XLPageOrientation kbns)
+            {
+                return new PrintOrientationKbn(kbns);
+            }
+        }
+
+        #endregion
+
+        #region 印刷カラム区分
+
+        public enum PrintColumnKbns
+        {
+            Renban,
+            HDDName,
+            State,
+            InsertTime,
+            UpdateTime,
+            DeleteStump,
+            Barcode,
+            NextProcess,
+            ConfirmTime,
+            ConfirmStump,
+            NONE,
+        }
+
+        public class PrintColumnKbn
+        {
+            private PrintColumnKbns type;
+
+            public PrintColumnKbn(PrintColumnKbns v)
+            {
+                this.type = v;
+            }
+
+            //public PrintColumnKbn(string flag)
+            //{
+            //    switch (flag)
+            //    {
+            //        case "1": this.type = PrintColumnKbns.Renban; break;
+            //        case "2": this.type = PrintColumnKbns.HDDName; break;
+            //        default: this.type = PrintColumnKbns.NONE; break;
+            //    }
+            //}
+
+            //public static PrintColumnKbn GetTypeForDBValue(string DBValue)
+            //{
+            //    switch (DBValue)
+            //    {
+            //        case "1": return PrintColumnKbns.Renban;
+            //        case "2": return PrintColumnKbns.HDDName;
+            //        default: return PrintColumnKbns.NONE;
+            //    }
+            //}
+
+            //public string DBValue
+            //{
+            //    get
+            //    {
+            //        switch (this.type)
+            //        {
+            //            case PrintColumnKbns.Renban: return "1";
+            //            case PrintColumnKbns.HDDName: return "2";
+            //            default: return "0";
+            //        }
+            //    }
+            //}
+
+            public string ViewValue
+            {
+                get
+                {
+                    switch (this.type)
+                    {
+                        case PrintColumnKbns.Renban: return "連番";
+                        case PrintColumnKbns.HDDName: return "HDD名";
+                        case PrintColumnKbns.State: return "状態";
+                        case PrintColumnKbns.InsertTime: return "登録日時";
+                        case PrintColumnKbns.UpdateTime: return "更新日時";
+                        case PrintColumnKbns.Barcode: return "連番バーコード";
+                        case PrintColumnKbns.DeleteStump: return "削除日･印";
+                        case PrintColumnKbns.NextProcess: return "次工程";
+                        case PrintColumnKbns.ConfirmTime: return "実施日";
+                        case PrintColumnKbns.ConfirmStump: return "実施印";
+                        default: return String.Empty;
+                    }
+                }
+            }
+
+            public int Order
+            {
+                get
+                {
+                    switch (this.type)
+                    {
+                        case PrintColumnKbns.Renban: return 1;
+                        case PrintColumnKbns.HDDName: return 2;
+                        case PrintColumnKbns.State: return 3;
+                        case PrintColumnKbns.InsertTime: return 4;
+                        case PrintColumnKbns.UpdateTime: return 5;
+                        case PrintColumnKbns.DeleteStump: return 6;
+                        case PrintColumnKbns.Barcode: return 7;
+                        case PrintColumnKbns.NextProcess: return 8;
+                        case PrintColumnKbns.ConfirmTime: return 9;
+                        case PrintColumnKbns.ConfirmStump: return 10;
+                        default: return 0;
+                    }
+                }
+            }
+
+            public bool DefaultPrint
+            {
+                get
+                {
+                    switch (this.type)
+                    {
+                        case PrintColumnKbns.Renban: return true;
+                        case PrintColumnKbns.HDDName: return true;
+                        case PrintColumnKbns.State: return false;
+                        case PrintColumnKbns.InsertTime: return false;
+                        case PrintColumnKbns.UpdateTime: return false;
+                        case PrintColumnKbns.DeleteStump: return true;
+                        case PrintColumnKbns.Barcode: return false;
+                        case PrintColumnKbns.NextProcess: return true;
+                        case PrintColumnKbns.ConfirmTime: return true;
+                        case PrintColumnKbns.ConfirmStump: return true;
+                        default: return false;
+                    }
+                }
+            }
+
+            public bool AdjustToContents
+            {
+                get
+                {
+                    switch (this.type)
+                    {
+                        case PrintColumnKbns.HDDName: return false;
+                        case PrintColumnKbns.DeleteStump: return false;
+                        case PrintColumnKbns.Barcode: return false;
+                        case PrintColumnKbns.NextProcess: return false;
+                        case PrintColumnKbns.ConfirmTime: return false;
+                        case PrintColumnKbns.ConfirmStump: return false;
+                        default: return true;
+                    }
+                }
+            }
+
+            public double Width
+            {
+                get
+                {
+                    switch (this.type)
+                    {
+                        case PrintColumnKbns.HDDName: return 28;
+                        case PrintColumnKbns.DeleteStump: return 10;
+                        case PrintColumnKbns.Barcode: return 28;
+                        case PrintColumnKbns.NextProcess: return 14;
+                        case PrintColumnKbns.ConfirmTime: return 10;
+                        case PrintColumnKbns.ConfirmStump: return 10;
+                        default: return 0;
+                    }
+                }
+            }
+
+            public PrintColumnKbns Value
+            {
+                get
+                {
+                    return this.type;
+                }
+            }
+
+            /// <summary>
+            /// 静的型変換
+            /// Class -> Enum
+            /// </summary>
+            /// <param name="PrintColumnKbn"></param>
+            public static implicit operator PrintColumnKbns(PrintColumnKbn PrintColumnKbn)
+            {
+                return PrintColumnKbn.type;
+            }
+
+            /// <summary>
+            /// 静的型変換
+            /// Enum -> Class
+            /// </summary>
+            /// <param name="PrintColumnKbns"></param>
+            public static implicit operator PrintColumnKbn(PrintColumnKbns PrintColumnKbns)
+            {
+                return new PrintColumnKbn(PrintColumnKbns);
+            }
+        }
+
+        #endregion
+
+        #region フォーカス区分
+
+        public enum NextFocusKbns
+        {
+            Renban,
+            HDDName,
+            NONE,
+        }
+
+        public class NextFocusKbn
+        {
+            private NextFocusKbns type;
+
+            public NextFocusKbn(NextFocusKbns v)
+            {
+                this.type = v;
+            }
+
+            public NextFocusKbn(string flag)
+            {
+                switch (flag)
+                {
+                    case "1": this.type = NextFocusKbns.Renban; break;
+                    case "2": this.type = NextFocusKbns.HDDName; break;
+                    default: this.type = NextFocusKbns.NONE; break;
+                }
+            }
+
+            public static NextFocusKbn GetTypeForDBValue(string DBValue)
+            {
+                switch (DBValue)
+                {
+                    case "1": return NextFocusKbns.Renban;
+                    case "2": return NextFocusKbns.HDDName;
+                    default: return NextFocusKbns.NONE;
+                }
+            }
+
+            public string DBValue
+            {
+                get
+                {
+                    switch (this.type)
+                    {
+                        case NextFocusKbns.Renban: return "1";
+                        case NextFocusKbns.HDDName: return "2";
+                        default: return "0";
+                    }
+                }
+            }
+
+            public string ViewValue
+            {
+                get
+                {
+                    switch (this.type)
+                    {
+                        case NextFocusKbns.Renban: return "連番";
+                        case NextFocusKbns.HDDName: return "HDD名";
+                        default: return String.Empty;
+                    }
+                }
+            }
+
+            public NextFocusKbns Value
+            {
+                get
+                {
+                    return this.type;
+                }
+            }
+
+            /// <summary>
+            /// 静的型変換
+            /// Class -> Enum
+            /// </summary>
+            /// <param name="NextFocusKbn"></param>
+            public static implicit operator NextFocusKbns(NextFocusKbn NextFocusKbn)
+            {
+                return NextFocusKbn.type;
+            }
+
+            /// <summary>
+            /// 静的型変換
+            /// Enum -> Class
+            /// </summary>
+            /// <param name="NextFocusKbns"></param>
+            public static implicit operator NextFocusKbn(NextFocusKbns NextFocusKbns)
+            {
+                return new NextFocusKbn(NextFocusKbns);
             }
         }
 

@@ -36,6 +36,7 @@
             this.txtRenban = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnLabelPrint = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.txtDetailUpdateTime = new System.Windows.Forms.TextBox();
@@ -47,13 +48,14 @@
             this.txtDetailHDDName = new System.Windows.Forms.TextBox();
             this.txtDetailRenban = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnLabelPrint = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnClear);
             this.groupBox1.Controls.Add(this.btnSearch);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtHDDName);
@@ -72,7 +74,7 @@
             // 
             this.btnSearch.Location = new System.Drawing.Point(285, 20);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(135, 51);
+            this.btnSearch.Size = new System.Drawing.Size(135, 23);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "表示";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -135,6 +137,15 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "明細";
+            // 
+            // btnLabelPrint
+            // 
+            this.btnLabelPrint.Location = new System.Drawing.Point(285, 105);
+            this.btnLabelPrint.Name = "btnLabelPrint";
+            this.btnLabelPrint.Size = new System.Drawing.Size(135, 51);
+            this.btnLabelPrint.TabIndex = 14;
+            this.btnLabelPrint.Text = "ラベル再印刷";
+            this.btnLabelPrint.UseVisualStyleBackColor = true;
             // 
             // btnUpdate
             // 
@@ -238,14 +249,14 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "連番";
             // 
-            // btnLabelPrint
+            // btnClear
             // 
-            this.btnLabelPrint.Location = new System.Drawing.Point(285, 105);
-            this.btnLabelPrint.Name = "btnLabelPrint";
-            this.btnLabelPrint.Size = new System.Drawing.Size(135, 51);
-            this.btnLabelPrint.TabIndex = 14;
-            this.btnLabelPrint.Text = "ラベル再印刷";
-            this.btnLabelPrint.UseVisualStyleBackColor = true;
+            this.btnClear.Location = new System.Drawing.Point(285, 48);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(135, 23);
+            this.btnClear.TabIndex = 4;
+            this.btnClear.Text = "クリア";
+            this.btnClear.UseVisualStyleBackColor = true;
             // 
             // FormRowDetail
             // 
@@ -290,5 +301,6 @@
         private System.Windows.Forms.TextBox txtDetailRegisterTime;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnLabelPrint;
+        private System.Windows.Forms.Button btnClear;
     }
 }

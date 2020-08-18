@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,11 +28,24 @@ namespace HDDLedger
             }
         }
 
+        [JsonIgnore]
+        private string hddname;
+
         /// <summary>
         /// HDD名(任意)
         /// </summary>
         [JsonProperty("HDDName")]
-        public string HDDName { get; set; }
+        public string HDDName
+        {
+            get
+            {
+                return hddname;
+            }
+            set
+            {
+                hddname = value.ToUpper();
+            }
+        }
 
         /// <summary>
         /// 登録日時
@@ -85,7 +99,7 @@ namespace HDDLedger
         /// HDD状態
         /// </summary>
         [JsonIgnore]
-        public HDDStateType State 
+        public HDDStateType State
         {
             get
             {
@@ -95,6 +109,7 @@ namespace HDDLedger
             {
                 state = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StateColor)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StateViewValue)));
             }
         }
@@ -119,11 +134,21 @@ namespace HDDLedger
         {
             get
             {
-                return State.DBValue;
+                return state.DBValue;
             }
             set
             {
-                State = HDDStateType.GetTypeForDBValue(value);
+                state = HDDStateType.GetTypeForDBValue(value);
+            }
+        }
+
+
+        [JsonIgnore]
+        public System.Drawing.Color StateColor
+        {
+            get
+            {
+                return state.RowColor;
             }
         }
 

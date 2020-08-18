@@ -213,6 +213,7 @@
     <Compile Include="Basic\Enum.cs" />
     <Compile Include="Basic\Excel.cs" />
     <Compile Include="Basic\HDDInfoRow.cs" />
+    <Compile Include="Basic\ColumnRow.cs" />
     <Compile Include="FormAddRow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -231,6 +232,12 @@
     <Compile Include="FormPrint.Designer.cs">
       <DependentUpon>FormPrint.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPrintOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrintOption.Designer.cs">
+      <DependentUpon>FormPrintOption.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormRowDetail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +250,12 @@
     <Compile Include="FormStateChange.Designer.cs">
       <DependentUpon>FormStateChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormStateChangeContinuous.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStateChangeContinuous.Designer.cs">
+      <DependentUpon>FormStateChangeContinuous.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormAddRow.resx">
@@ -254,11 +267,17 @@
     <EmbeddedResource Include="FormPrint.resx">
       <DependentUpon>FormPrint.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormPrintOption.resx">
+      <DependentUpon>FormPrintOption.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormRowDetail.resx">
       <DependentUpon>FormRowDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormStateChange.resx">
       <DependentUpon>FormStateChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStateChangeContinuous.resx">
+      <DependentUpon>FormStateChangeContinuous.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

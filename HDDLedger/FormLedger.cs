@@ -35,9 +35,22 @@ namespace HDDLedger
 
             btnAdd.Click += ButtonAdd_Click;
             btnStateChange.Click += ButtonStateChange_Click;
+            btnStateChangeContinuous.Click += BtnStateChangeContinuous_Click;
             btnDetail.Click += ButtonDetail_Click;
             btnPrint.Click += ButtonPrint_Click;
             btnRowDelete.Click += ButtonRowDelete_Click;
+
+            dgvHDD.RowPrePaint += dgvHDD_RowPrePaint;
+        }
+
+        private void BtnStateChangeContinuous_Click(object sender, EventArgs e)
+        {
+            FormStateChangeContinuous.Instance.ShowDialog(this);
+        }
+
+        private void dgvHDD_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            dgvHDD.Rows[e.RowIndex].DefaultCellStyle.BackColor = Rows[e.RowIndex].StateColor;
         }
 
         private void ButtonPrint_Click(object sender, EventArgs e)
@@ -100,13 +113,13 @@ namespace HDDLedger
                         return;
                 }
 
+                FormStateChange.Instance.Rows = selectrows;
                 FormStateChange.Instance.ShowDialog(this);
             }
         }
 
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            FormAddRow.Instance.OpenExcel = this.chkOpenExcel.Checked;
             FormAddRow.Instance.ShowDialog(this);
 
             dgvHDD.FirstDisplayedScrollingRowIndex = dgvHDD.Rows.Count - 1;
@@ -134,6 +147,7 @@ namespace HDDLedger
                 Rows = rows == null ? new BindingList<HDDInfoRow>() : rows;
 
                 dgvHDD.DataSource = Rows;
+                dgvHDD.FirstDisplayedScrollingRowIndex = dgvHDD.Rows.Count - 1;
             }
             catch (Exception ex)
             {
