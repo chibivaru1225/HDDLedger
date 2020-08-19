@@ -112,7 +112,7 @@ namespace HDDLedger
 
                 if (cbFocusControl.SelectedValue is NextFocusKbns kbn)
                 {
-                    switch(kbn)
+                    switch (kbn)
                     {
                         case NextFocusKbns.Renban:
                             txtBaseRenban.Focus();

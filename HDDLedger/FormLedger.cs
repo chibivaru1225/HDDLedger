@@ -65,6 +65,7 @@ namespace HDDLedger
 
         private void ButtonRowDelete_Click(object sender, EventArgs e)
         {
+            EditConfirmed();
             var selectrows = (from a in Rows
                               where a.Choose == true
                               select a).ToArray();
@@ -91,6 +92,7 @@ namespace HDDLedger
 
         private void ButtonStateChange_Click(object sender, EventArgs e)
         {
+            EditConfirmed();
             var selectrows = (from a in Rows
                               where a.Choose == true
                               select a);
@@ -190,6 +192,11 @@ namespace HDDLedger
 
                 return JsonConvert.DeserializeObject<BindingList<HDDInfoRow>>(json);
             }
+        }
+
+        public void EditConfirmed()
+        {
+            this.dgvHDD.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
     }
 }

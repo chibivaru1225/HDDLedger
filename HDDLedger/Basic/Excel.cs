@@ -107,6 +107,12 @@ namespace HDDLedger
                                     sheet.Cell(2 + i, l + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                                     sheet.Cell(2 + i, l + 1).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
                                     break;
+                                case Enum.PrintColumnKbns.Barcode:
+                                    var imagepath = documents + @"\HDDLedger\Barcode\Barcode-" + rows.ElementAt(i).BarcodeRenban + ".png";
+                                    var pic = sheet.AddPicture(imagepath).MoveTo(sheet.Cell(2 + i, l + 1));
+                                    pic.Width = 200;
+                                    pic.Height = 30;
+                                    break;
                                 default:
                                     value = String.Empty;
                                     break;
@@ -118,28 +124,6 @@ namespace HDDLedger
                         }
                     }
 
-                    //if (printbarcode)
-                    //    sheet.Cell(1, 7).Value = "連番バーコード";
-
-                    //for (int i = 0; i < rows.Count(); i++)
-                    //{
-                    //    sheet.Cell(2 + i, 1).Value = "'" + rows.ElementAt(i).BarcodeRenban;
-                    //    sheet.Cell(2 + i, 2).Value = rows.ElementAt(i).HDDName;
-                    //    sheet.Cell(2 + i, 3).Value = rows.ElementAt(i).StateViewValue;
-                    //    sheet.Cell(2 + i, 4).Value = rows.ElementAt(i).RegisterTimeStr;
-                    //    sheet.Cell(2 + i, 5).Value = rows.ElementAt(i).LatestUpdateTimeStr;
-
-                    //    sheet.Row(2 + i).Height = 30;
-
-                    //    //if (printbarcode)
-                    //    //{
-                    //    //    var imagepath = documents + @"\HDDLedger\Barcode\Barcode-" + rows.ElementAt(i).BarcodeRenban + ".png";
-                    //    //    var pic = sheet.AddPicture(imagepath).MoveTo(sheet.Cell(2 + i, 7));
-                    //    //    pic.Width = 200;
-                    //    //    pic.Height = 30;
-                    //    //}
-                    //}
-
                     sheet.ColumnsUsed().AdjustToContents();
 
                     for (int l = 0; l < crows.Count(); l++)
@@ -147,38 +131,15 @@ namespace HDDLedger
                         if (!crows.ElementAt(l).Kbn.AdjustToContents)
                             sheet.Column(l + 1).Width = crows.ElementAt(l).Kbn.Width;
                     }
-                    //if (printbarcode)
-                    //{
-                    //    sheet.Range(sheet.Cell(1, 1), sheet.Cell(1 + rows.Count(), 7)).Style
-                    //                       .Border.SetTopBorder(XLBorderStyleValues.Thin)
-                    //                       .Border.SetBottomBorder(XLBorderStyleValues.Thin)
-                    //                       .Border.SetLeftBorder(XLBorderStyleValues.Thin)
-                    //                       .Border.SetRightBorder(XLBorderStyleValues.Thin);
-                    //}
-                    //else
-                    //{
+
                     sheet.Range(sheet.Cell(1, 1), sheet.Cell(1 + rows.Count(), crows.Count())).Style
                                    .Border.SetTopBorder(XLBorderStyleValues.Thin)
                                    .Border.SetBottomBorder(XLBorderStyleValues.Thin)
                                    .Border.SetLeftBorder(XLBorderStyleValues.Thin)
                                    .Border.SetRightBorder(XLBorderStyleValues.Thin);
-                    //}
-
-                    //sheet.Column(6).Width = 10;
-
-                    //if (printbarcode)
-                    //{
-                    //    sheet.Column(7).Width = 28;
-                    //    //sheet.PageSetup.Margins.Top = 1.91 / 2.54;
-                    //    //sheet.PageSetup.Margins.Bottom = 1.91 / 2.54;
-                    //    //sheet.PageSetup.Margins.Left = 0.64 / 2.54;
-                    //    //sheet.PageSetup.Margins.Right = 0.64 / 2.54;
-                    //    //sheet.PageSetup.Margins.Footer = 0;
-                    //    //sheet.PageSetup.Margins.Header = 0;
-                    //}
 
                     sheet.PageSetup.PageOrientation = orientation;
-                    sheet.PageSetup.SetRowsToRepeatAtTop(1, 1 + crows.Count());
+                    sheet.PageSetup.SetRowsToRepeatAtTop(1, 1);
                     workbook.SaveAs(excelpath);
                 }
             }

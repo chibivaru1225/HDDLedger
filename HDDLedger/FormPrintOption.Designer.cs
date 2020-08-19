@@ -37,9 +37,11 @@
             this.chColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbPrintOrientation = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnDefault = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnDefault = new System.Windows.Forms.Button();
+            this.btnAllSelect = new System.Windows.Forms.Button();
+            this.btnAllClear = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrintColumn)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -52,10 +54,10 @@
             this.chPrint,
             this.chPrintTurn,
             this.chColumnName});
-            this.dgvPrintColumn.Location = new System.Drawing.Point(6, 21);
+            this.dgvPrintColumn.Location = new System.Drawing.Point(6, 70);
             this.dgvPrintColumn.Name = "dgvPrintColumn";
             this.dgvPrintColumn.RowTemplate.Height = 21;
-            this.dgvPrintColumn.Size = new System.Drawing.Size(425, 384);
+            this.dgvPrintColumn.Size = new System.Drawing.Size(425, 395);
             this.dgvPrintColumn.TabIndex = 0;
             // 
             // chPrint
@@ -95,7 +97,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnDefault);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cbPrintOrientation);
             this.groupBox1.Location = new System.Drawing.Point(9, 9);
@@ -105,6 +106,15 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "基本";
+            // 
+            // btnDefault
+            // 
+            this.btnDefault.Location = new System.Drawing.Point(211, 21);
+            this.btnDefault.Name = "btnDefault";
+            this.btnDefault.Size = new System.Drawing.Size(107, 43);
+            this.btnDefault.TabIndex = 3;
+            this.btnDefault.Text = "デフォルトに\r\n戻す";
+            this.btnDefault.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -117,29 +127,41 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnAllClear);
+            this.groupBox2.Controls.Add(this.btnAllSelect);
+            this.groupBox2.Controls.Add(this.btnDefault);
             this.groupBox2.Controls.Add(this.dgvPrintColumn);
             this.groupBox2.Location = new System.Drawing.Point(9, 65);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(437, 411);
+            this.groupBox2.Size = new System.Drawing.Size(437, 471);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "印刷項目";
             // 
-            // btnDefault
+            // btnAllSelect
             // 
-            this.btnDefault.Location = new System.Drawing.Point(315, 21);
-            this.btnDefault.Name = "btnDefault";
-            this.btnDefault.Size = new System.Drawing.Size(116, 23);
-            this.btnDefault.TabIndex = 3;
-            this.btnDefault.Text = "デフォルトに戻す";
-            this.btnDefault.UseVisualStyleBackColor = true;
+            this.btnAllSelect.Location = new System.Drawing.Point(6, 21);
+            this.btnAllSelect.Name = "btnAllSelect";
+            this.btnAllSelect.Size = new System.Drawing.Size(107, 43);
+            this.btnAllSelect.TabIndex = 4;
+            this.btnAllSelect.Text = "全選択";
+            this.btnAllSelect.UseVisualStyleBackColor = true;
+            // 
+            // btnAllClear
+            // 
+            this.btnAllClear.Location = new System.Drawing.Point(324, 21);
+            this.btnAllClear.Name = "btnAllClear";
+            this.btnAllClear.Size = new System.Drawing.Size(107, 43);
+            this.btnAllClear.TabIndex = 5;
+            this.btnAllClear.Text = "全解除";
+            this.btnAllClear.UseVisualStyleBackColor = true;
             // 
             // FormPrintOption
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(458, 488);
+            this.ClientSize = new System.Drawing.Size(458, 545);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -169,5 +191,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn chColumnName;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnDefault;
+        private System.Windows.Forms.Button btnAllClear;
+        private System.Windows.Forms.Button btnAllSelect;
     }
 }

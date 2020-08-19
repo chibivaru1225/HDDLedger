@@ -57,6 +57,35 @@ namespace HDDLedger
             dgvPrintColumn.DataSource = ColumnRows;
 
             btnDefault.Click += btnDefault_Click;
+            btnAllSelect.Click += btnAllSelect_Click;
+            btnAllClear.Click += btnAllClear_Click;
+
+            this.FormClosing += FormPrintOption_FormClosing;
+        }
+
+        private void FormPrintOption_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Visible = false;
+            }
+        }
+
+        private void btnAllClear_Click(object sender, EventArgs e)
+        {
+            foreach (var row in ColumnRows)
+                row.IsPrint = false;
+
+            dgvPrintColumn.Refresh();
+        }
+
+        private void btnAllSelect_Click(object sender, EventArgs e)
+        {
+            foreach (var row in ColumnRows)
+                row.IsPrint = true;
+
+            dgvPrintColumn.Refresh();
         }
 
         private void btnDefault_Click(object sender, EventArgs e)
@@ -111,6 +140,11 @@ namespace HDDLedger
             }
 
             return list;
+        }
+
+        public void EditConfirmed()
+        {
+            this.dgvPrintColumn.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
 
         private class ComboBoxPrintOrientationItem

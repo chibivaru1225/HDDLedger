@@ -111,10 +111,19 @@ namespace HDDLedger
                              select a);
 
                 if (cbUsePrintOption.Checked)
+                {
+                    FormPrintOption.Instance.EditConfirmed();
                     crows = (from a in FormPrintOption.Instance.ColumnRows
                              where a.IsPrint
                              orderby a.ColumnOrder
                              select a);
+
+                    if (crows.Count() == 0)
+                    {
+                        MessageBox.Show(this, "印刷される項目がありません。項目を選択してください。", "HDD台帳");
+                        return;
+                    }
+                }
 
                 Process.Start(Excel.CreateLedger(rows, crows, FormPrintOption.Instance.Orientation));
                 MessageBox.Show(this, "出力完了しました。", "HDD台帳");
