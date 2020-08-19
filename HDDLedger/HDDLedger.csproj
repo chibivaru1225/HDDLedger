@@ -214,10 +214,10 @@
     <Compile Include="Basic\Excel.cs" />
     <Compile Include="Basic\HDDInfoRow.cs" />
     <Compile Include="Basic\ColumnRow.cs" />
-    <Compile Include="FormAddRow.cs">
+    <Compile Include="SubForm\FormAddRow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddRow.Designer.cs">
+    <Compile Include="SubForm\FormAddRow.Designer.cs">
       <DependentUpon>FormAddRow.cs</DependentUpon>
     </Compile>
     <Compile Include="FormLedger.cs">
@@ -226,57 +226,57 @@
     <Compile Include="FormLedger.Designer.cs">
       <DependentUpon>FormLedger.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormPrint.cs">
+    <Compile Include="SubForm\FormPrint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPrint.Designer.cs">
+    <Compile Include="SubForm\FormPrint.Designer.cs">
       <DependentUpon>FormPrint.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormPrintOption.cs">
+    <Compile Include="SubForm\FormPrintOption.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPrintOption.Designer.cs">
+    <Compile Include="SubForm\FormPrintOption.Designer.cs">
       <DependentUpon>FormPrintOption.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormRowDetail.cs">
+    <Compile Include="SubForm\FormRowDetail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormRowDetail.Designer.cs">
+    <Compile Include="SubForm\FormRowDetail.Designer.cs">
       <DependentUpon>FormRowDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormStateChange.cs">
+    <Compile Include="SubForm\FormStateChange.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormStateChange.Designer.cs">
+    <Compile Include="SubForm\FormStateChange.Designer.cs">
       <DependentUpon>FormStateChange.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormStateChangeContinuous.cs">
+    <Compile Include="SubForm\FormStateChangeContinuous.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormStateChangeContinuous.Designer.cs">
+    <Compile Include="SubForm\FormStateChangeContinuous.Designer.cs">
       <DependentUpon>FormStateChangeContinuous.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormAddRow.resx">
+    <EmbeddedResource Include="SubForm\FormAddRow.resx">
       <DependentUpon>FormAddRow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLedger.resx">
       <DependentUpon>FormLedger.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormPrint.resx">
+    <EmbeddedResource Include="SubForm\FormPrint.resx">
       <DependentUpon>FormPrint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormPrintOption.resx">
+    <EmbeddedResource Include="SubForm\FormPrintOption.resx">
       <DependentUpon>FormPrintOption.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormRowDetail.resx">
+    <EmbeddedResource Include="SubForm\FormRowDetail.resx">
       <DependentUpon>FormRowDetail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormStateChange.resx">
+    <EmbeddedResource Include="SubForm\FormStateChange.resx">
       <DependentUpon>FormStateChange.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormStateChangeContinuous.resx">
+    <EmbeddedResource Include="SubForm\FormStateChangeContinuous.resx">
       <DependentUpon>FormStateChangeContinuous.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -131,20 +131,6 @@ namespace HDDLedger
         {
             try
             {
-                //var bc = new BarcodeWriter();
-                //bc.Format = BarcodeFormat.CODE_128;
-                //bc.Options.Width = 200;
-                //bc.Options.Height = 40;
-                //bc.Options.Margin = 30;
-                //bc.Options.PureBarcode = false;
-
-                //var row = Rows.FirstOrDefault();
-
-                //var renban = row.BarcodeRenban;
-
-                //var file = Excel.CreateExcelPage(row);
-
-                //Process.Start(file);
                 var rows = GetData();
                 Rows = rows == null ? new BindingList<HDDInfoRow>() : rows;
 

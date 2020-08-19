@@ -606,5 +606,107 @@ namespace HDDLedger
         }
 
         #endregion
+
+        #region はいいいえ区分
+
+        public enum YesNoKbns
+        {
+            Yes,
+            No,
+        }
+
+        public class YesNoKbn
+        {
+            private YesNoKbns YesNoKbns;
+
+            public YesNoKbn(YesNoKbns v)
+            {
+                this.YesNoKbns = v;
+            }
+
+            public YesNoKbn(string flag)
+            {
+                switch (flag)
+                {
+                    case "1": this.YesNoKbns = YesNoKbns.Yes; break;
+                    default: this.YesNoKbns = YesNoKbns.No; break;
+                }
+            }
+
+            public static YesNoKbn GetKbnForDBValue(string DBValue)
+            {
+                switch (DBValue)
+                {
+                    case "1": return YesNoKbns.Yes;
+                    default: return YesNoKbns.No;
+                }
+            }
+
+            public string DBValue
+            {
+                get
+                {
+                    switch (this.YesNoKbns)
+                    {
+                        case YesNoKbns.Yes: return "1";
+                        default: return "0";
+                    }
+                }
+            }
+
+            public bool BoolValue
+            {
+                get
+                {
+                    switch (this.YesNoKbns)
+                    {
+                        case YesNoKbns.Yes: return true;
+                        default: return false;
+                    }
+                }
+            }
+
+            public string ViewValue
+            {
+                get
+                {
+                    switch (this.YesNoKbns)
+                    {
+                        case YesNoKbns.Yes: return "はい";
+                        default: return "いいえ";
+                    }
+                }
+            }
+
+            public YesNoKbns Value
+            {
+                get
+                {
+                    return this.YesNoKbns;
+                }
+            }
+
+            /// <summary>
+            /// 静的型変換
+            /// Class -> Enum
+            /// </summary>
+            /// <param name="YesNoKbn"></param>
+            public static implicit operator YesNoKbns(YesNoKbn YesNoKbn)
+            {
+                return YesNoKbn.YesNoKbns;
+            }
+
+            /// <summary>
+            /// 静的型変換
+            /// Enum -> Class
+            /// </summary>
+            /// <param name="YesNoKbns"></param>
+            public static implicit operator YesNoKbn(YesNoKbns YesNoKbns)
+            {
+                return new YesNoKbn(YesNoKbns);
+            }
+        }
+
+        #endregion
     }
 }
