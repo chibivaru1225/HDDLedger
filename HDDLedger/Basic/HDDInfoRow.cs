@@ -142,7 +142,6 @@ namespace HDDLedger
             }
         }
 
-
         [JsonIgnore]
         public System.Drawing.Color StateColor
         {
@@ -170,5 +169,31 @@ namespace HDDLedger
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+
+        public IEnumerable<string> Properties()
+        {
+            return (from a in GetType().GetProperties()
+                    select a.Name);
+        }
+
+        [JsonIgnore]
+        public object this[string propertyName]
+        {
+            get
+            {
+                if (!Properties().Contains(propertyName))
+                    throw new IndexOutOfRangeException();
+
+                return GetType().GetProperty(propertyName).GetValue(this);
+            }
+            set
+            {
+                if (!Properties().Contains(propertyName))
+                    throw new IndexOutOfRangeException();
+
+                GetType().GetProperty(propertyName).SetValue(this, value);
+            }
+        }
     }
 }

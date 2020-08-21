@@ -15,6 +15,7 @@ namespace HDDLedger
             Abandoned,
             Discard,
             Reuse,
+            PhysicalDestruction,
             NONE,
         }
 
@@ -36,6 +37,7 @@ namespace HDDLedger
                     case "3": this.type = HDDStateTypes.Abandoned; break;
                     case "4": this.type = HDDStateTypes.Discard; break;
                     case "5": this.type = HDDStateTypes.Reuse; break;
+                    case "6": this.type = HDDStateTypes.PhysicalDestruction; break;
                     default: this.type = HDDStateTypes.NONE; break;
                 }
             }
@@ -49,6 +51,7 @@ namespace HDDLedger
                     case "3": return HDDStateTypes.Abandoned;
                     case "4": return HDDStateTypes.Discard;
                     case "5": return HDDStateTypes.Reuse;
+                    case "6": return HDDStateTypes.PhysicalDestruction;
                     default: return HDDStateTypes.NONE;
                 }
             }
@@ -64,6 +67,7 @@ namespace HDDLedger
                         case HDDStateTypes.Abandoned: return "3";
                         case HDDStateTypes.Discard: return "4";
                         case HDDStateTypes.Reuse: return "5";
+                        case HDDStateTypes.PhysicalDestruction: return "6";
                         default: return "0";
                     }
                 }
@@ -81,6 +85,7 @@ namespace HDDLedger
                         case HDDStateTypes.Abandoned: return "廃棄待";
                         case HDDStateTypes.Discard: return "廃棄済";
                         case HDDStateTypes.Reuse: return "再利用";
+                        case HDDStateTypes.PhysicalDestruction: return "物理破壊待";
                         default: return String.Empty;
                     }
                 }
@@ -97,6 +102,7 @@ namespace HDDLedger
                         case HDDStateTypes.Abandoned: return Color.Yellow;
                         case HDDStateTypes.Discard: return Color.LightPink;
                         case HDDStateTypes.Reuse: return Color.SkyBlue;
+                        case HDDStateTypes.PhysicalDestruction: return Color.Orange;
                         default: return Color.White;
                     }
                 }
@@ -128,6 +134,100 @@ namespace HDDLedger
             public static implicit operator HDDStateType(HDDStateTypes HDDStateTypes)
             {
                 return new HDDStateType(HDDStateTypes);
+            }
+        }
+
+        #endregion
+
+        #region HDD台帳列区分
+
+        public enum HDDLedgerColumnTypes
+        {
+            Chosen,
+            Renban,
+            HDDName,
+            HDDState,
+            InsertTime,
+            UpdateTime,
+            NONE,
+        }
+
+        public class HDDLedgerColumnType
+        {
+            private HDDLedgerColumnTypes type;
+
+            public HDDLedgerColumnType(HDDLedgerColumnTypes v)
+            {
+                this.type = v;
+            }
+
+            public HDDLedgerColumnType(string v)
+            {
+                this.type = GetTypeForDataColumnName(v);
+            }
+
+            public String SortColumnName
+            {
+                get
+                {
+                    return GetSortColumnName(this.type);
+                }
+            }
+
+            public static String GetSortColumnName(HDDLedgerColumnTypes v)
+            {
+                switch (v)
+                {
+                    case HDDLedgerColumnTypes.Chosen: return nameof(HDDInfoRow.Choose);
+                    case HDDLedgerColumnTypes.Renban: return nameof(HDDInfoRow.Renban);
+                    case HDDLedgerColumnTypes.HDDName: return nameof(HDDInfoRow.HDDName);
+                    case HDDLedgerColumnTypes.HDDState: return nameof(HDDInfoRow.StateDBStr);
+                    case HDDLedgerColumnTypes.InsertTime: return nameof(HDDInfoRow.RegisterTime);
+                    case HDDLedgerColumnTypes.UpdateTime: return nameof(HDDInfoRow.LatestUpdateTime);
+                    default: return String.Empty;
+                }
+            }
+
+            public static HDDLedgerColumnType GetTypeForDataColumnName(string datacolumnname)
+            {
+                switch (datacolumnname)
+                {
+                    case nameof(HDDInfoRow.Choose): return HDDLedgerColumnTypes.Chosen;
+                    case nameof(HDDInfoRow.Renban): return HDDLedgerColumnTypes.Renban;
+                    case nameof(HDDInfoRow.HDDName): return HDDLedgerColumnTypes.HDDName;
+                    case nameof(HDDInfoRow.StateViewValue): return HDDLedgerColumnTypes.HDDState;
+                    case nameof(HDDInfoRow.RegisterTimeStr): return HDDLedgerColumnTypes.InsertTime;
+                    case nameof(HDDInfoRow.LatestUpdateTimeStr): return HDDLedgerColumnTypes.UpdateTime;
+                    default: return HDDLedgerColumnTypes.NONE;
+                }
+            }
+
+            public HDDLedgerColumnTypes Value
+            {
+                get
+                {
+                    return this.type;
+                }
+            }
+
+            /// <summary>
+            /// 静的型変換
+            /// Class -> Enum
+            /// </summary>
+            /// <param name="HDDLedgerColumnType"></param>
+            public static implicit operator HDDLedgerColumnTypes(HDDLedgerColumnType HDDLedgerColumnType)
+            {
+                return HDDLedgerColumnType.type;
+            }
+
+            /// <summary>
+            /// 静的型変換
+            /// Enum -> Class
+            /// </summary>
+            /// <param name="HDDLedgerColumnTypes"></param>
+            public static implicit operator HDDLedgerColumnType(HDDLedgerColumnTypes HDDLedgerColumnTypes)
+            {
+                return new HDDLedgerColumnType(HDDLedgerColumnTypes);
             }
         }
 

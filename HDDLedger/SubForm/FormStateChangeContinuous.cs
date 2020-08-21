@@ -106,6 +106,7 @@ namespace HDDLedger
                 }
 
                 row.State = type;
+                row.LatestUpdateTime = DateTime.Now;
                 FormLedger.UpdateData();
                 BasicPanel_Clear();
 

@@ -20,6 +20,8 @@ namespace HDDLedger
 {
     public partial class FormLedger : Form
     {
+        private HDDLedgerColumnType ct;
+
         public static BindingList<HDDInfoRow> Rows { get; set; }
 
         public FormLedger()
@@ -32,6 +34,7 @@ namespace HDDLedger
             SetColumnBindingName();
 
             this.Load += FormLedger_Load;
+            ct = new HDDLedgerColumnType(HDDLedgerColumnTypes.NONE);
 
             btnAdd.Click += ButtonAdd_Click;
             btnStateChange.Click += ButtonStateChange_Click;
@@ -41,6 +44,38 @@ namespace HDDLedger
             btnRowDelete.Click += ButtonRowDelete_Click;
 
             dgvHDD.RowPrePaint += dgvHDD_RowPrePaint;
+            dgvHDD.ColumnHeaderMouseClick += dgvHDD_ColumnHeaderMouseClick;
+        }
+
+        private void dgvHDD_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (sender is DataGridView dgv && dgv != null)
+            {
+                var column = new HDDLedgerColumnType(dgv.Columns[e.ColumnIndex].DataPropertyName);
+
+                var rows = (from a in Rows
+                            select a).ToList();
+
+                if (column.Value == ct.Value)
+                {
+                    rows = (from a in rows
+                            orderby a[column.SortColumnName] descending
+                            select a).ToList();
+                    ct = HDDLedgerColumnTypes.NONE;
+                }
+                else
+                {
+                    rows = (from a in rows
+                            orderby a[column.SortColumnName] ascending
+                            select a).ToList();
+                    ct = column;
+                }
+
+                Rows.Clear();
+
+                foreach (var row in rows)
+                    Rows.Add(row);
+            }
         }
 
         private void BtnStateChangeContinuous_Click(object sender, EventArgs e)
