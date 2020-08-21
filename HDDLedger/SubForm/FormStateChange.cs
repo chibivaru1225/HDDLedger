@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static HDDLedger.Enum;
 
@@ -98,11 +92,6 @@ namespace HDDLedger
         {
             var cblist = new List<ComboBoxStateItem>();
             cblist.Clear();
-
-            //var tcgnone = new ComboBoxStateItem();
-            //tcgnone.HDDState = HDDStateTypes.NONE;
-
-            //cblist.Add(tcgnone);
 
             foreach (var tcg in System.Enum.GetValues(typeof(HDDStateTypes)))
             {
