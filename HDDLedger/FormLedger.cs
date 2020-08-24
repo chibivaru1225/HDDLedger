@@ -63,10 +63,8 @@ namespace HDDLedger
                     ct = column;
                 }
 
-                Rows.Clear();
-
-                foreach (var row in rows)
-                    Rows.Add(row);
+                Rows = new BindingList<HDDInfoRow>(rows);
+                dgvHDD.DataSource = Rows;
             }
         }
 
@@ -183,7 +181,7 @@ namespace HDDLedger
         public static void UpdateData()
         {
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var json = JsonConvert.SerializeObject(Rows);
+            var json = JsonConvert.SerializeObject(Rows.OrderBy(x => x.Renban));
 
             using (StreamWriter sw = new StreamWriter(documents + @"\HDDLedger\Data.json", false, Encoding.ASCII))
             {
