@@ -48,19 +48,33 @@ namespace HDDLedger
                 var rows = (from a in Rows
                             select a).ToList();
 
-                if (column.Value == ct.Value)
+                switch (column.SortColumnName)
                 {
-                    rows = (from a in rows
-                            orderby a[column.SortColumnName] descending
-                            select a).ToList();
-                    ct = HDDLedgerColumnTypes.NONE;
-                }
-                else
-                {
-                    rows = (from a in rows
-                            orderby a[column.SortColumnName] ascending
-                            select a).ToList();
-                    ct = column;
+                    case nameof(HDDInfoRow.Choose):
+                        if (column.Value == ct.Value)
+                            ct = HDDLedgerColumnTypes.NONE;
+                        else
+                            ct = column;
+
+                        foreach (var row in Rows)
+                            row.Choose = column.Value == ct.Value;
+                        break;
+                    default:
+                        if (column.Value == ct.Value)
+                        {
+                            rows = (from a in rows
+                                    orderby a[column.SortColumnName] descending
+                                    select a).ToList();
+                            ct = HDDLedgerColumnTypes.NONE;
+                        }
+                        else
+                        {
+                            rows = (from a in rows
+                                    orderby a[column.SortColumnName] ascending
+                                    select a).ToList();
+                            ct = column;
+                        }
+                        break;
                 }
 
                 Rows = new BindingList<HDDInfoRow>(rows);
