@@ -38,13 +38,13 @@ namespace HDDLedger
             this.FormClosing += FormRowDetail_FormClosing;
             this.VisibleChanged += FormRowDetail_VisibleChanged;
 
-            btnSearch.Click += ButtonSearch_Click;
-            btnClear.Click += BtnClear_Click;
-            btnUpdate.Click += ButtonUpdate_Click;
-            btnLabelPrint.Click += BtnLabelPrint_Click;
+            btnSearch.Click += btnSearch_Click;
+            btnClear.Click += btnClear_Click;
+            btnUpdate.Click += btnUpdate_Click;
+            btnLabelPrint.Click += btnLabelPrint_Click;
         }
 
-        private void BtnClear_Click(object sender, EventArgs e)
+        private void btnClear_Click(object sender, EventArgs e)
         {
             this.txtRenban.Clear();
             this.txtHDDName.Clear();
@@ -58,7 +58,7 @@ namespace HDDLedger
             row = null;
         }
 
-        private void BtnLabelPrint_Click(object sender, EventArgs e)
+        private void btnLabelPrint_Click(object sender, EventArgs e)
         {
             if (row == null)
             {
@@ -90,7 +90,7 @@ namespace HDDLedger
             row = null;
         }
 
-        private void ButtonSearch_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(txtRenban.Text.Trim()) && String.IsNullOrEmpty(txtHDDName.Text.Trim()))
             {
@@ -132,7 +132,7 @@ namespace HDDLedger
             }
         }
 
-        private void ButtonUpdate_Click(object sender, EventArgs e)
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
             if(row == null)
             {
