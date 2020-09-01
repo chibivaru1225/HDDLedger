@@ -66,6 +66,7 @@
             // 
             // cbState
             // 
+            this.cbState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbState.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.cbState.FormattingEnabled = true;
             this.cbState.Location = new System.Drawing.Point(57, 12);

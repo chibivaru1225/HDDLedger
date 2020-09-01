@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRowDetail));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnClear = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtHDDName = new System.Windows.Forms.TextBox();
@@ -48,7 +49,6 @@
             this.txtDetailHDDName = new System.Windows.Forms.TextBox();
             this.txtDetailRenban = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnClear = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +69,15 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "検索";
+            // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(285, 48);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(135, 23);
+            this.btnClear.TabIndex = 4;
+            this.btnClear.Text = "クリア";
+            this.btnClear.UseVisualStyleBackColor = true;
             // 
             // btnSearch
             // 
@@ -206,6 +215,7 @@
             // 
             // cbState
             // 
+            this.cbState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbState.FormattingEnabled = true;
             this.cbState.Location = new System.Drawing.Point(79, 77);
             this.cbState.Name = "cbState";
@@ -248,15 +258,6 @@
             this.label4.Size = new System.Drawing.Size(37, 15);
             this.label4.TabIndex = 4;
             this.label4.Text = "連番";
-            // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(285, 48);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(135, 23);
-            this.btnClear.TabIndex = 4;
-            this.btnClear.Text = "クリア";
-            this.btnClear.UseVisualStyleBackColor = true;
             // 
             // FormRowDetail
             // 
